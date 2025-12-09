@@ -1,0 +1,83 @@
+Purpose of Driver Methods / Browser Commands:
+a. get()
+
+Loads a new webpage in the current browser window using the given URL.
+
+b. getCurrentURL()
+
+Returns the URL of the webpage currently opened in the browser.
+
+c. getPageSource()
+
+Retrieves the complete HTML source code of the current webpage.
+
+d. getTitle()
+
+Returns the title of the webpage displayed in the browser.
+
+e. close() vs quit()
+
+close(): Closes the current browser tab.
+quit(): Closes all browser windows and ends the WebDriver session.
+
+f. getWindowHandle()
+
+Returns the unique ID (handle) of the current browser window.
+
+g. getWindowHandles()
+
+Returns a set of window IDs for all open tabs/windows.
+
+h. navigate()
+
+Used to move between pages: back(), forward(), refresh(), and to() for navigation.
+
+i. switchTo()
+
+Switches focus to frames, alerts, windows, or active elements in the browser.
+
+===============================================================================================================================================================================================
+Purpose of WebElement Methods / Commands:
+a. sendKeys()
+
+Types the given text into an input field or textbox.
+
+b. clear()
+
+Erases the existing text from an input box or text area.
+
+c. click()
+
+Performs a mouse click on a button, link, checkbox, radio button, etc.
+
+d. findElement()
+
+Finds and returns the first matching web element based on the locator.
+
+e. findElements()
+
+Returns a list of all matching elements; returns an empty list if none found.
+
+f. getDomAttribute()
+
+Fetches the value of a given DOM attribute directly from the element.
+
+g. getScreenShotAs()
+
+Captures a screenshot of the element and returns it in the requested format.
+
+h. getText()
+
+Returns the visible text content of the element.
+
+i. isDisplayed()
+
+Checks whether the element is visible on the page.
+
+j. isEnabled()
+
+Checks whether the element is enabled for interaction.
+
+k. isSelected()
+
+Checks whether a checkbox, radio button, or option is selected.
