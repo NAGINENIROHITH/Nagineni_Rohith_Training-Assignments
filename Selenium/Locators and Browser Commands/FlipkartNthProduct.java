@@ -1,6 +1,7 @@
 package SeleniumDemoo;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,8 +9,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
 import java.util.List;
 
-public class FlipkartNthProduct {
+public class FlipkartProductCount {
+
     public static void main(String[] args) throws InterruptedException {
+
         WebDriver driver = new ChromeDriver();
 
         driver.manage().window().maximize();
@@ -17,41 +20,48 @@ public class FlipkartNthProduct {
 
         driver.get("https://www.flipkart.com/");
 
+        // Close login popup if visible
         try {
-            WebElement closeBtn = driver.findElement(By.cssSelector("button._2KpZ6l._2doB4z"));
+            WebElement closeBtn = driver.findElement(By.cssSelector("button._2KpZ6l._2doB4z, button._2KpZ6l._2doB4z"));
             closeBtn.click();
         } catch (Exception e) {
-            
+            // popup not displayed - ignore
         }
 
         String[] products = {"Laptop", "TV", "Smart Phone"};
-        int[] nth = {7, 13, 2};
 
-        for (int i = 0; i < products.length; i++) {
-            String product = products[i];
-            int index = nth[i];
-
+        for (String product : products) {
             WebElement searchBox = driver.findElement(By.name("q"));
-            searchBox.clear();
+            searchBox.click();
+
+            searchBox.sendKeys(Keys.CONTROL + "a");
+            searchBox.sendKeys(Keys.DELETE);
+
             searchBox.sendKeys(product);
 
-            WebElement searchButton = driver.findElement(By.cssSelector("button[type='submit']"));
-            searchButton.click();
+        
+            driver.findElement(By.cssSelector("button[type='submit']")).click();
 
-            Thread.sleep(3000);
+            Thread.sleep(4000);   
 
-            List<WebElement> productTitles = driver.findElements(By.cssSelector("div._4rR01T"));
+        
+            List<WebElement> productList = driver.findElements(By.cssSelector("div[data-id]"));
 
-            if (productTitles.size() >= index) {
-                WebElement nthProduct = productTitles.get(index - 1); // 0-based index
-                System.out.println(product + " - " + index + "th product name: " + nthProduct.getText());
+            System.out.println("=======================================");
+            System.out.println("Search Term: " + product);
+
+            if (productList.size() > 0) {
+                System.out.println("Total products displayed on this page: " + productList.size());
             } else {
-                System.out.println("Less than " + index + " products found for: " + product);
+                System.out.println("No products found (or locator needs update).");
             }
 
-            System.out.println("------------------------------------");
+            System.out.println("=======================================\n");
+
+            // (Optional) small wait before next search
+            Thread.sleep(5000);
         }
 
+        driver.quit();
     }
 }
-
